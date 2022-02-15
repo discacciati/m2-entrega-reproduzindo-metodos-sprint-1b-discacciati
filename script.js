@@ -12,7 +12,7 @@ function callbackMultiply(element, i , array, globalThis ){
 // ------- forEach() ------------// Executa um loop for e executa a função callback em todos elementos do array. 
 // -----------------------------// Mas não retorna um novo Array. Nem altera o original.
 //array.forEach(callbackMultiply);
-function newforEach (array, callbackMultiply){
+function newForEach (array, callbackMultiply){
     const arrayTemp = [];
     for( let i=0; i < array.length ; i++ ){
         let element = array[i];
@@ -20,7 +20,7 @@ function newforEach (array, callbackMultiply){
     }
     return arrayTemp;
 }
-const newArray1 = newforEach(array,callbackMultiply);
+const newArray1 = newForEach(array,callbackMultiply);
 console.log(`Executando a função newForEach temos newArray1 como ${newArray1}`);
 
 
@@ -83,14 +83,14 @@ console.log(newFind(novoArrayTeste, callBackTamanho))
 // ------------- findIndex() -----------// retornando um boleano para cada elemento. 
 // ------------------------------------// O primeiro elemento que obtiver true da função CAllback, retornará o index desse elemento. 
 //console.log(novoArrayTeste.findIndex(callBackTamanho));
-function newfindIndex(novoArrayTeste, callBackTamanho){
+function newFindIndex(novoArrayTeste, callBackTamanho){
     for( let i=0 ; i<novoArrayTeste.length ; i++){
         if(callBackTamanho(novoArrayTeste[i], i , novoArrayTeste , globalThis) === true){
             return i;
         }
     }
 }    
-console.log(newfindIndex(novoArrayTeste, callBackTamanho))
+console.log(newFindIndex(novoArrayTeste, callBackTamanho))
 
 
 // ----------------------------------// É declarado um valor inicial, se não declarado será 0 . 
@@ -104,14 +104,14 @@ function callBackSoma(total, element){
     return total + element;
 }
 
-function newreduce(novoArrayTeste,callBackSoma, initialValue){
+function newReduce(novoArrayTeste,callBackSoma, initialValue){
         let total = initialValue;
         for (let i = 0 ; i<novoArrayTeste.length ; i++){
             total = callBackSoma(total, novoArrayTeste[i], i , novoArrayTeste);
         }
         return total;
 }
-console.log(newreduce(novoArrayTeste, callBackSoma, initialValue));
+console.log(newReduce(novoArrayTeste, callBackSoma, initialValue));
 
 
 // -------------------------------// executa um loop for em um array para verificar se cada elemento passa no teste 
@@ -120,7 +120,7 @@ console.log(newreduce(novoArrayTeste, callBackSoma, initialValue));
 // ----------------------------// Se todos forem false, o retorno será false. 
 //console.log ( novoArrayTeste.some(callBackTamanho,globalThis));
 
-function newsome(novoArrayTeste, callBackTamanho){
+function newSome(novoArrayTeste, callBackTamanho){
     for( let i = 0 ; i<novoArrayTeste.length ; i++){
         if(callBackTamanho(novoArrayTeste[i], i , novoArrayTeste , globalThis)=== true){
             return true; 
@@ -128,7 +128,7 @@ function newsome(novoArrayTeste, callBackTamanho){
     }
     return false;
 }
-console.log(newsome(novoArrayTeste, callBackTamanho));
+console.log(newSome(novoArrayTeste, callBackTamanho));
 
 
 // -----------------------------------// executa um loop for em um array para verificar se cada elemento passa no teste 
@@ -137,7 +137,7 @@ console.log(newsome(novoArrayTeste, callBackTamanho));
 // --------------------------------// Se um elemento retornar false, o retorno será false. 
 console.log ( novoArrayTeste.every(callBackTamanho,globalThis));
 
-function newevery(novoArrayTeste, callBackTamanho){
+function newEvery(novoArrayTeste, callBackTamanho){
     let resultado = false ; 
     for( let i = 0 ; i<novoArrayTeste.length ; i++){
         if(callBackTamanho(novoArrayTeste[i], i , novoArrayTeste , globalThis)!== true){
@@ -151,7 +151,7 @@ function newevery(novoArrayTeste, callBackTamanho){
         return true;
     }   
 }
-console.log(newevery(novoArrayTeste, callBackTamanho));
+console.log(newEvery(novoArrayTeste, callBackTamanho));
 
 
 // ----------------------------------//executa um loop for para percorrer um array e verificar se, 
@@ -163,7 +163,7 @@ console.log(newevery(novoArrayTeste, callBackTamanho));
 let value = 30;
 let fromIndex = 0;
 
-function newincludes(novoArrayTeste, fromIndex, value){
+function newIncludes(novoArrayTeste, fromIndex, value){
     for( let i = fromIndex ; i<novoArrayTeste.length; i++){
         if (novoArrayTeste[i] === value){
             return true;
@@ -171,7 +171,7 @@ function newincludes(novoArrayTeste, fromIndex, value){
     }
     return false;
 }
-console.log(newincludes(novoArrayTeste, fromIndex, value));
+console.log(newIncludes(novoArrayTeste, fromIndex, value));
 
 
 // ---------------------------------// executa um loop for para percorrer um array e verificar se, 
@@ -184,7 +184,7 @@ console.log(novoArrayTeste.indexOf(30,0));
 let valor = 30;
 let indexInicial = 0;
 
-function newindexOf(novoArrayTeste, indexInicial, valor){
+function newIndexOf(novoArrayTeste, indexInicial, valor){
     for( let i = indexInicial ; i<novoArrayTeste.length; i++){
         if (novoArrayTeste[i] === valor){
             return i;
@@ -192,7 +192,7 @@ function newindexOf(novoArrayTeste, indexInicial, valor){
     }
     return -1;
 }
-console.log(newindexOf(novoArrayTeste, indexInicial, valor));
+console.log(newIndexOf(novoArrayTeste, indexInicial, valor));
 
 
 // --------------------------------// Ele retorna um novo array, juntando(concatenando) o valor do array inicial 
@@ -201,7 +201,7 @@ console.log(newindexOf(novoArrayTeste, indexInicial, valor));
 //console.log (novoArrayTeste.concat(50,60, array));
 let valor1 = 50;
 let valor2 = 60;
-function newconcat(novoArrayTeste, valor1, valor2, array){
+function newConcat(novoArrayTeste, valor1, valor2, array){
     const novoArrayConcatenado = novoArrayTeste;
     novoArrayConcatenado.push(valor1);
     novoArrayConcatenado.push(valor2);
@@ -210,7 +210,7 @@ function newconcat(novoArrayTeste, valor1, valor2, array){
     }
     return novoArrayConcatenado;
 }
-console.log (newconcat(novoArrayTeste, valor1, valor2, array));
+console.log (newConcat(novoArrayTeste, valor1, valor2, array));
 
 
 // -------------------------------------// ele executa um loop for em todos os elementos de um array, 
@@ -222,14 +222,14 @@ const arrayTexto = ["Eliane", "Discacciati", "Dantas"]
 //console.log (novoArrayTeste.join(", "));
 //console.log (arrayTexto.join(" "));
 
-function newjoin(arrayTexto){
+function newJoin(arrayTexto){
     let newString = "";
     for( let i=0 ; i<arrayTexto.length ; i++){
         newString += String(arrayTexto[i]) + " ";
     }
     return newString;
 }
-console.log (newjoin(arrayTexto));
+console.log (newJoin(arrayTexto));
 
 
 // ---------------------------------//executa um loop for, iniciando no index inicial declarado, 
@@ -241,14 +241,14 @@ console.log(novoArrayTeste.slice(1,4));
 let indexdeInicio = 1;
 let ultimoIndexUsado = 4 ; 
 
-function newslice(novoArrayTeste, indexdeInicio, ultimoIndexUsado){
+function newSlice(novoArrayTeste, indexdeInicio, ultimoIndexUsado){
     const novoArrayRecortado = [];
     for( let i=indexdeInicio; i<ultimoIndexUsado ; i++){
         novoArrayRecortado.push(novoArrayTeste[i]);
     }
     return novoArrayRecortado;
 }
-console.log(newslice(novoArrayTeste, indexdeInicio, ultimoIndexUsado));
+console.log(newSlice(novoArrayTeste, indexdeInicio, ultimoIndexUsado));
 
 // -------------------------------------// executa um loop for, percorrendo todo array declarado. 
 // ------------------------------------// Adicionando cada posição ao novo Array, 
@@ -258,7 +258,7 @@ console.log(newslice(novoArrayTeste, indexdeInicio, ultimoIndexUsado));
 const arraysAninhados = [10,20,30, [40,50,60]];
 //console.log(arraysAninhados.flat(1));
 
-function newflat(arraysAninhados){
+function newFlat(arraysAninhados){
     const arrayAchatado = [];
     for(let i=0; i<arraysAninhados.length ; i++){
         console.log(typeof arraysAninhados[i]);
@@ -274,7 +274,7 @@ function newflat(arraysAninhados){
     }
     return arrayAchatado;
 }
-console.log(newflat(arraysAninhados));
+console.log(newFlat(arraysAninhados));
 
 
 // ----------------------------------// Quando vc usa o método .map() aninhando o retorno da função callback 
@@ -288,7 +288,7 @@ function callbackMultiplyAninhada(element, i , array, globalThis ){
     return element*2 ;
 }
 
-function newflatMap(array,callbackMultiplyAninhada){
+function newFlatMap(array,callbackMultiplyAninhada){
     const arrayAninhada =[];
     const arrayFlat = [];
     //const arrayAninhadaFlat =[];
@@ -303,4 +303,4 @@ function newflatMap(array,callbackMultiplyAninhada){
     //console.log(arrayAninhada);
     return arrayFlat;
 }
-console.log(newflatMap(array, callbackMultiply));
+console.log(newFlatMap(array, callbackMultiply));
