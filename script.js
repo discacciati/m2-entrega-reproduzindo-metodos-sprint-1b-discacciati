@@ -26,20 +26,22 @@ console.log(`Executando a função newForEach temos newArray1 como ${newArray1}`
 
 // ------- map() ----------// Executa um loop for e executa a função callback em todos os elementos do array. 
 // -----------------------// Retorna um novo array com cada novo elemento. Alterando o array original.
-//array.map(callbackMultiply);
+console.log(array.map(callbackMultiply));
 function newMap(array,callbackMultiply){
+    let newArrayTesteMap = [];
     for(let i = 0 ; i<array.length ; i++){
         let element = array[i];
         array[i] = callbackMultiply(element, i , array, globalThis );
+        newArrayTesteMap.push(array[i]);
     }
+    return array = newArrayTesteMap;
 }
-newMap(array, callbackMultiply);
-console.log(`Executando a função newMap temos array como ${array}`);
+console.log(newMap(array, callbackMultiply));
 
 
 //---------------------------------------------------------------------------------------------------//
 
-const novoArrayTeste = [5,10,15,20,25,30,35];
+const novoArrayTeste = [5,-10,15,20,25,30,35];
 
 console.log(`Novo Array de Teste é ${novoArrayTeste}`);
 
@@ -89,6 +91,7 @@ function newFindIndex(novoArrayTeste, callBackTamanho){
             return i;
         }
     }
+    return -1;
 }    
 console.log(newFindIndex(novoArrayTeste, callBackTamanho))
 
@@ -105,7 +108,12 @@ function callBackSoma(total, element){
 }
 
 function newReduce(novoArrayTeste,callBackSoma, initialValue){
+        console.log(initialValue);
+        if(initialValue == undefined){
+            initialValue = 0 ;
+        } else { initialValue = initialValue;}
         let total = initialValue;
+        console.log(total);
         for (let i = 0 ; i<novoArrayTeste.length ; i++){
             total = callBackSoma(total, novoArrayTeste[i], i , novoArrayTeste);
         }
@@ -159,19 +167,28 @@ console.log(newEvery(novoArrayTeste, callBackTamanho));
 // --------------------------------// Iniciando a busca a partir do index declarado(fromIndex). 
 // -------------------------------// Se o valor for encontrado é retornado True, se não será false.  
 //console.log(novoArrayTeste.includes(30,0));
-
-let value = 30;
+const novoArrayTeste2 = [5,[10,3],15,20,25,30,35];
+let value = [10,3];
 let fromIndex = 0;
 
-function newIncludes(novoArrayTeste, fromIndex, value){
-    for( let i = fromIndex ; i<novoArrayTeste.length; i++){
-        if (novoArrayTeste[i] === value){
+function newIncludes(novoArrayTeste2, fromIndex, value){
+    if(typeof value === "object"){
+       value = value.toString();
+    }
+    for( let i = fromIndex ; i<novoArrayTeste2.length; i++){
+        if(typeof novoArrayTeste2[i] === "object"){
+            novoArrayTeste2[i]= novoArrayTeste2[i].toString();
+            if( novoArrayTeste2[i]=== value){
+                return true
+            }
+        }
+        if(novoArrayTeste2[i] === value){
             return true;
         }
     }
     return false;
 }
-console.log(newIncludes(novoArrayTeste, fromIndex, value));
+console.log(newIncludes(novoArrayTeste2, fromIndex, value));
 
 
 // ---------------------------------// executa um loop for para percorrer um array e verificar se, 
@@ -181,51 +198,92 @@ console.log(newIncludes(novoArrayTeste, fromIndex, value));
 // -----------------------------// Se não for encontrado, será retornado -1 (referente a nenhum index.)
 console.log(novoArrayTeste.indexOf(30,0));
 
-let valor = 30;
+let valor = [10,3];
 let indexInicial = 0;
 
-function newIndexOf(novoArrayTeste, indexInicial, valor){
-    for( let i = indexInicial ; i<novoArrayTeste.length; i++){
-        if (novoArrayTeste[i] === valor){
+function newIndexOf(novoArrayTeste2, valor, indexInicial){
+    if(indexInicial == undefined){
+        indexInicial = 0;
+    }
+    if(indexInicial >= novoArrayTeste2.length){
+        return -1;
+    }
+    if(indexInicial<0){
+        for( let i = indexInicial ; i>novoArrayTeste2.length; i--){
+            if (novoArrayTeste2[i] === valor){
+                return i*-1;
+            }
+        }        
+    }
+    if(indexInicial>=0 && indexInicial<novoArrayTeste2.length){
+        if(typeof valor === "object"){
+            valor = valor.toString();
+         }
+        for( let i = indexInicial ; i<novoArrayTeste2.length; i++){
+            if (novoArrayTeste2[i] === valor){
             return i;
+            }
+            if(typeof novoArrayTeste2[i] === "object"){
+                novoArrayTeste2[i]=novoArrayTeste2[i].toString();
+                if(novoArrayTeste2[i] === valor){
+                    return i;
+                }
+            }
         }
     }
-    return -1;
 }
-console.log(newIndexOf(novoArrayTeste, indexInicial, valor));
+console.log(newIndexOf(novoArrayTeste2, valor, indexInicial));
 
 
 // --------------------------------// Ele retorna um novo array, juntando(concatenando) o valor do array inicial 
 // ----------- concat() ----------// (que receberá o concat) com os valores ou arrays passados como parâmetros. 
 // ------------------------------// Mantendo a ordem que foram passados.
 //console.log (novoArrayTeste.concat(50,60, array));
-let valor1 = 50;
-let valor2 = 60;
-function newConcat(novoArrayTeste, valor1, valor2, array){
-    const novoArrayConcatenado = novoArrayTeste;
-    novoArrayConcatenado.push(valor1);
-    novoArrayConcatenado.push(valor2);
-    for( let i=0 ; i<array.length ; i++){
-        novoArrayConcatenado.push(array[i]);
+function newConcat(novoArrayTeste, array){
+    const novoArrayConcatenado = [];
+    if(typeof novoArrayTeste !== "object"){
+        novoArrayConcatenado.push(novoArrayTeste);
+    }
+    if(typeof novoArrayTeste === "object"){
+        for(let i=0; i<novoArrayTeste.length ; i++){
+            novoArrayConcatenado.push(novoArrayTeste[i]);
+        }
+    }
+    if(typeof array !== "object"){
+        novoArrayConcatenado.push(novoArrayTeste);
+    }
+    if(typeof array === "object"){
+        for(let i=0; i<array.length ; i++){
+            novoArrayConcatenado.push(array[i]);
+        }
     }
     return novoArrayConcatenado;
 }
-console.log (newConcat(novoArrayTeste, valor1, valor2, array));
+console.log (newConcat(novoArrayTeste,array));
 
 
 // -------------------------------------// ele executa um loop for em todos os elementos de um array, 
 // ------------ join() ----------------// transformando todos em string e juntando todos os elementos uma nova string, 
 // -----------------------------------// separando os elementos com o separador declarado, e retorna a nova string.
 
-const arrayTexto = ["Eliane", "Discacciati", "Dantas"]
+const arrayTexto = ["Eliane", "Discacciati", "Prado", "Gomes", "Dantas"]
 
 //console.log (novoArrayTeste.join(", "));
 //console.log (arrayTexto.join(" "));
 
-function newJoin(arrayTexto){
+function newJoin(arrayTexto, separador){
+    if(separador = null | separador == undefined){
+        separador = ",";
+    }
     let newString = "";
     for( let i=0 ; i<arrayTexto.length ; i++){
-        newString += String(arrayTexto[i]) + " ";
+        if(i < arrayTexto.length-1){
+            newString += String(arrayTexto[i]) + separador; 
+        }
+        if(i === arrayTexto.length-1){
+            newString += String(arrayTexto[i]);    
+        }
+       
     }
     return newString;
 }
@@ -254,28 +312,40 @@ console.log(newSlice(novoArrayTeste, indexdeInicio, ultimoIndexUsado));
 // ------------------------------------// Adicionando cada posição ao novo Array, 
 // ---------- flat() -----------------// Na posição que for diferente de um número e tiver um array aninhado, 
 // ----------------------------------// ele quebra esse array e adiciona ao novo array. 
-// ---------------------------------// Quantas camadas (valor declarado) de arrays aninhados desejar achatar. retorna um novo array.
-const arraysAninhados = [10,20,30, [40,50,60]];
-//console.log(arraysAninhados.flat(1));
+// ---------------------------------// Quantas camadas (valor declarado) de arrays aninhados desejar achatar. Retorna um novo array.
+const arraysAninhados = [10,20,30, [40,50,[60, 70, 80, [90,[100]]]]];
+console.log(arraysAninhados.flat(3));
+let profundidade = 3
 
-function newFlat(arraysAninhados){
-    const arrayAchatado = [];
-    for(let i=0; i<arraysAninhados.length ; i++){
-        console.log(typeof arraysAninhados[i]);
-        if (typeof arraysAninhados[i] !== "object"){ 
-            arrayAchatado.push(arraysAninhados[i]);
-        }
-        if(typeof arraysAninhados[i] === "object"){
-            let pequenoArray = arraysAninhados[i];
-            for(let index=0; index<pequenoArray.length; index++){
-                arrayAchatado.push(pequenoArray[index]);
+function newFlat(arraysAninhados, profundidade){
+    if(profundidade == undefined){
+        profundidade = 1;
+    }
+    let arrayAchatadoFinal = [];
+    let arrayAchatado = arraysAninhados;
+    for(let i= 1 ; i<=profundidade ; i++){
+        for( let index=0 ; index<arrayAchatado.length ; index++){
+            if (typeof arrayAchatado[index] !== "object"){ 
+            arrayAchatadoFinal.push(arrayAchatado[index]);
+            }
+            if(typeof arrayAchatado[index] === "object"){
+            arrayAchatadoFinal.push(...arrayAchatado[index]);
             }
         } 
+        if(profundidade === 1 ){ 
+            return arrayAchatadoFinal;} 
+        if(profundidade!==1){
+            if(i<profundidade){
+                arrayAchatado = arrayAchatadoFinal ; 
+                arrayAchatadoFinal = [];
+            }
+        }
+        
     }
-    return arrayAchatado;
+    return arrayAchatadoFinal;
 }
-console.log(newFlat(arraysAninhados));
-
+console.log(newFlat(arraysAninhados, profundidade));
+//console.log(typeof arraysAninhados[i]);
 
 // ----------------------------------// Quando vc usa o método .map() aninhando o retorno da função callback 
 // ---------- flatMap() ------------// dentro de um array, ele retorna um novo array, com um array pequeno (com apenas o elemento) 
@@ -294,7 +364,7 @@ function newFlatMap(array,callbackMultiplyAninhada){
     //const arrayAninhadaFlat =[];
     for(let i = 0 ; i<array.length ; i++){
         let element = array[i];
-       arrayAninhada.push([callbackMultiply(element, i , array, globalThis )]);
+       arrayAninhada.push([callbackMultiplyAninhada(element, i , array, globalThis )]);
     }
     for(let index=0 ; index<arrayAninhada.length ; index++){
         const arrayTemporario = arrayAninhada[index];
@@ -303,4 +373,4 @@ function newFlatMap(array,callbackMultiplyAninhada){
     //console.log(arrayAninhada);
     return arrayFlat;
 }
-console.log(newFlatMap(array, callbackMultiply));
+console.log(newFlatMap(array, callbackMultiplyAninhada));
