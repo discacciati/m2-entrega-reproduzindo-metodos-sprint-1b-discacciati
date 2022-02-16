@@ -283,7 +283,6 @@ function newJoin(arrayTexto, separador){
         if(i === arrayTexto.length-1){
             newString += String(arrayTexto[i]);    
         }
-       
     }
     return newString;
 }
