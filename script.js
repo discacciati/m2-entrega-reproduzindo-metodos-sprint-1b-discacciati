@@ -167,29 +167,27 @@ console.log(newEvery(novoArrayTeste, callBackTamanho));
 // --------------------------------// Iniciando a busca a partir do index declarado(fromIndex). 
 // -------------------------------// Se o valor for encontrado é retornado True, se não será false.  
 //console.log(novoArrayTeste.includes(30,0));
-const novoArrayTeste2 = [5,[10,3],15,20,25,30,35];
-let value = [10,3];
+const novoArrayTeste2 = [5,[10,3,4],15,20,25,"30",35];
+let value = "30" ;
 let fromIndex = 0;
 
 function newIncludes(novoArrayTeste2, fromIndex, value){
-    if(typeof value === "object"){
-       value = value.toString();
-    }
     for( let i = fromIndex ; i<novoArrayTeste2.length; i++){
+        if(novoArrayTeste2[i] === value){
+            if(typeof value == "number"){ value = value ;}
+            return true;
+        }            
         if(typeof novoArrayTeste2[i] === "object"){
             novoArrayTeste2[i]= novoArrayTeste2[i].toString();
+           if(typeof value === "object"){ value = value.toString();}
             if( novoArrayTeste2[i]=== value){
                 return true
             }
-        }
-        if(novoArrayTeste2[i] === value){
-            return true;
         }
     }
     return false;
 }
 console.log(newIncludes(novoArrayTeste2, fromIndex, value));
-
 
 // ---------------------------------// executa um loop for para percorrer um array e verificar se, 
 // --------------------------------// algum elemento do array é igual ao valor declarado. 
@@ -198,8 +196,8 @@ console.log(newIncludes(novoArrayTeste2, fromIndex, value));
 // -----------------------------// Se não for encontrado, será retornado -1 (referente a nenhum index.)
 console.log(novoArrayTeste.indexOf(30,0));
 
-let valor = [10,3];
-let indexInicial = 0;
+let valor = 30;
+let indexInicial = -3;
 
 function newIndexOf(novoArrayTeste2, valor, indexInicial){
     if(indexInicial == undefined){
@@ -209,10 +207,19 @@ function newIndexOf(novoArrayTeste2, valor, indexInicial){
         return -1;
     }
     if(indexInicial<0){
-        for( let i = indexInicial ; i>novoArrayTeste2.length; i--){
+        if(typeof valor === "object"){
+            valor = valor.toString();
+         }
+        for( let i = novoArrayTeste2.length ; i>0; i--){
             if (novoArrayTeste2[i] === valor){
-                return i*-1;
+                return i;
             }
+            if(typeof novoArrayTeste2[i] === "object"){
+                novoArrayTeste2[i]=novoArrayTeste2[i].toString();
+                if(novoArrayTeste2[i] === valor){
+                    return i;
+                }
+            }   
         }        
     }
     if(indexInicial>=0 && indexInicial<novoArrayTeste2.length){
@@ -231,6 +238,7 @@ function newIndexOf(novoArrayTeste2, valor, indexInicial){
             }
         }
     }
+    return -1;
 }
 console.log(newIndexOf(novoArrayTeste2, valor, indexInicial));
 
@@ -266,13 +274,14 @@ console.log (newConcat(novoArrayTeste,array));
 // ------------ join() ----------------// transformando todos em string e juntando todos os elementos uma nova string, 
 // -----------------------------------// separando os elementos com o separador declarado, e retorna a nova string.
 
-const arrayTexto = ["Eliane", "Discacciati", "Prado", "Gomes", "Dantas"]
+const arrayTexto = [[40], [96], [35], [82], [60], [14], [91], [70]];
 
-//console.log (novoArrayTeste.join(", "));
+console.log (arrayTexto.join(","));
 //console.log (arrayTexto.join(" "));
 
+
 function newJoin(arrayTexto, separador){
-    if(separador = null | separador == undefined){
+    if(separador == undefined){
         separador = ",";
     }
     let newString = "";
@@ -314,7 +323,7 @@ console.log(newSlice(novoArrayTeste, indexdeInicio, ultimoIndexUsado));
 // ---------------------------------// Quantas camadas (valor declarado) de arrays aninhados desejar achatar. Retorna um novo array.
 const arraysAninhados = [10,20,30, [40,50,[60, 70, 80, [90,[100]]]]];
 console.log(arraysAninhados.flat(3));
-let profundidade = 3
+let profundidade = 1
 
 function newFlat(arraysAninhados, profundidade){
     if(profundidade == undefined){
